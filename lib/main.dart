@@ -1,3 +1,4 @@
+import 'package:akti4_sharedprefs_plus_sqlite/screens/add_student_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Counter Demo'),
+      home: AddStudentScreen(),
     );
   }
 }
