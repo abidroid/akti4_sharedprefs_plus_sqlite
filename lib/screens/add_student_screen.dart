@@ -3,6 +3,8 @@ import 'package:akti4_sharedprefs_plus_sqlite/screens/student_list_screen.dart';
 import 'package:akti4_sharedprefs_plus_sqlite/screens/update_student_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../models/shagird.dart';
+
 // Alt + Enter
 class AddStudentScreen extends StatefulWidget {
   const AddStudentScreen({super.key});
@@ -76,7 +78,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     String name = nameC.text.trim();
                     String course = courseC.text.trim();
                     String mobile = mobileC.text.trim();
@@ -99,15 +101,29 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
 
                     // code
 
-                    DatabaseHelper.instance.addStudent(
-                      name,
-                      course,
-                      mobile,
-                      int.parse(totalFee),
-                      int.parse(feePaid),
+                    // Create an object of Shagird
+                    // constructor
+                    Shagird shagird = Shagird(
+                      name: name,
+                      course: course,
+                      mobile: mobile,
+                      totalFee: int.parse(totalFee),
+                      feePaid: int.parse(feePaid),
                     );
 
 
+                    // pass that object to addStudent function
+                    int result = await DatabaseHelper.instance.addStudent(
+                      shagird
+                    );
+
+                    if (result > 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Student Added')));
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Student Not Added')));
+                    }
                   },
                   child: const Text('Save')),
               ElevatedButton(

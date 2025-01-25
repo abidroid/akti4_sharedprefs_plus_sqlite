@@ -1,6 +1,6 @@
-
 import 'dart:io';
 
+import 'package:akti4_sharedprefs_plus_sqlite/models/shagird.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -61,21 +61,26 @@ class DatabaseHelper {
     //     ''');
   }
 
-
   // CRUD
   // Create, Read, Update and Delete
   // Save Student Record
 
-  addStudent( String name, String course, String mobile, int tf, int fp){
-
+  Future<int> addStudent(Shagird s) async {
+    // get a reference to the database
+    Database database = await instance.database;
     // logic
+
+    int result = await database.rawInsert('''
+    INSERT INTO tbl_shagird (name, course, mobile, totalFee, feePaid)
+    VALUES ('${s.name}', '${s.course}', '${s.mobile}', ${s.totalFee}, ${s.feePaid});
+    ''');
+
+    return result;
   }
 
+// Retrieve Students Records
 
+// Delete Student Record
 
-  // Retrieve Students Records
-
-  // Delete Student Record
-
-  // Update Student Record
+// Update Student Record
 }
