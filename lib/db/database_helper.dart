@@ -80,6 +80,36 @@ class DatabaseHelper {
 
 // Retrieve Students Records
 
+  Future<List<Shagird>> getAllShagirds() async {
+
+    List<Shagird> listOfShagirds = [];
+
+    // reference
+    Database database = await instance.database;
+
+    List<Map<String, dynamic>> listOfMaps =
+        await database.rawQuery('SELECT * from tbl_shagird');
+
+    for (var map in listOfMaps) {
+      Shagird shagird = Shagird.fromMap(map);
+      listOfShagirds.add(shagird);
+    }
+
+    await Future.delayed(Duration(seconds: 1));
+    return listOfShagirds;
+  }
+
+/*
+  [
+    {
+
+    },
+    {
+
+    }
+  ]
+*/
+
 // Delete Student Record
 
 // Update Student Record

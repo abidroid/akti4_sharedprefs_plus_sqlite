@@ -15,4 +15,15 @@ class Shagird {
     required this.totalFee,
     required this.feePaid,
   });
+
+ factory Shagird.fromMap (Map<String, dynamic> map){
+   return Shagird(
+     id: map['id'],
+     name: map['name'],
+     course: map['course'],
+     mobile: map['mobile'],
+     totalFee: map['totalFee'],
+     feePaid: map['feePaid'],
+   );
+  }
 }
