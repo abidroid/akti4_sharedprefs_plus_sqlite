@@ -81,7 +81,6 @@ class DatabaseHelper {
 // Retrieve Students Records
 
   Future<List<Shagird>> getAllShagirds() async {
-
     List<Shagird> listOfShagirds = [];
 
     // reference
@@ -112,7 +111,7 @@ class DatabaseHelper {
 
 // Delete Student Record
 
-  Future<int> deleteStudent( int id ) async {
+  Future<int> deleteStudent(int id) async {
     Database database = await instance.database;
     int result = await database.rawDelete('''
     DELETE FROM tbl_shagird WHERE id = $id;
@@ -121,6 +120,14 @@ class DatabaseHelper {
     return result;
   }
 
+  // Update Student Record
+  Future<int> updateStudent(Shagird shagird) async {
+    Database database = await instance.database;
 
-// Update Student Record
+    int result = await database.rawUpdate('''
+    UPDATE tbl_shagird SET name = '${shagird.name}', course = '${shagird.course}', mobile = '${shagird.mobile}', totalFee = ${shagird.totalFee}, feePaid = ${shagird.feePaid} WHERE id = ${shagird.id};
+    ''');
+
+    return result;
+  }
 }
