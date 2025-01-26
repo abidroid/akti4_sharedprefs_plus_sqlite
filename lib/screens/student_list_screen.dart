@@ -87,7 +87,37 @@ class _StudentListScreenState extends State<StudentListScreen> {
                               children: [
                                 Expanded(child: ElevatedButton(onPressed: (){
                                   // show alert dialog
+                                  showDialog(context: context, builder: (context){
+                                    return AlertDialog(
+                                      title: Text("Confirmation!!!"),
+                                      content: Text("Are you sure you want to delete this student?"),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.of(context).pop();
+                                        }, child: Text('No')),
+                                        TextButton(onPressed: () async {
+                                          Navigator.of(context).pop();
 
+                                          // delete logic
+                                          int result = await DatabaseHelper.instance.deleteStudent(shagird.id!);
+
+
+                                          if (result > 0) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(content: Text('Student Deleted')));
+
+                                            setState(() {
+
+                                            });
+                                          }else{
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(content: Text('Student Not Deleted')));
+                                          }
+
+                                        }, child: Text('Yes')),
+                                      ],
+                                    );
+                                  });
 
 
 

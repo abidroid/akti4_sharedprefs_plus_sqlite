@@ -112,5 +112,15 @@ class DatabaseHelper {
 
 // Delete Student Record
 
+  Future<int> deleteStudent( int id ) async {
+    Database database = await instance.database;
+    int result = await database.rawDelete('''
+    DELETE FROM tbl_shagird WHERE id = $id;
+    ''');
+
+    return result;
+  }
+
+
 // Update Student Record
 }
